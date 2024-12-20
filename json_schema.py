@@ -3,6 +3,7 @@ Generates a type schema for a dict (most commonly, use this for grokking complex
 """
 
 import json
+import argparse
 
 
 def extract_schema(obj_to_scan, verbose=False):
@@ -26,7 +27,20 @@ example_json = {
     "cars": ["mazda", "nissan", "toyota"],
 }
 
-with open("toc.json", "r") as f:
-    toc_json = json.loads(f.read())
 
-schema = extract_schema(toc_json, verbose=True)
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("json_file", nargs="?", help="Path to the JSON file")
+    args = parser.parse_args()
+    if args.json_file:
+        with open(args.json_file, "r") as f:
+            json_data = json.loads(f.read())
+    else:  # Or we just show an example
+        with open("toc.json", "r") as f:
+            json_data = json.loads(f.read())
+    schema = extract_schema(json_data, verbose=True)
+    _ = schema  # dump the value since main is for CLI usage, i.e. user just wants to see the print
+
+
+if __name__ == "__main__":
+    main()
