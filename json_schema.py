@@ -1,9 +1,14 @@
 """
 Generates a type schema for a dict (most commonly, use this for grokking complex json objects like when web scraping.)
+This is also a command line utility, entry point defined in setup.py.
 """
 
 import json
 import argparse
+from pathlib import Path
+
+dir_path = Path(__file__).parent
+example_file = dir_path / "toc.json"
 
 
 def extract_schema(obj_to_scan, verbose=False):
@@ -36,7 +41,7 @@ def main():
         with open(args.json_file, "r") as f:
             json_data = json.loads(f.read())
     else:  # Or we just show an example
-        with open("toc.json", "r") as f:
+        with open(example_file, "r") as f:
             json_data = json.loads(f.read())
     schema = extract_schema(json_data, verbose=True)
     _ = schema  # dump the value since main is for CLI usage, i.e. user just wants to see the print
