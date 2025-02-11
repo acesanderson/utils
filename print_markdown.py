@@ -7,7 +7,7 @@ def print_markdown(string_to_display: str, console: Console | None = None):
     Prints formatted markdown to the console.
     You can use your existing console if you have one; otherwise this generates one by default.
     """
-    if not Console:
+    if not console:
         console = Console(width=80)
     # Create a Markdown object
     border = "-" * 80
