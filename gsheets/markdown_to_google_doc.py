@@ -3,22 +3,20 @@ from googleapiclient.http import MediaIoBaseUpload
 from google.oauth2 import service_account
 from markdown2 import markdown
 import io
+from pathlib import Path
 
-# First, our markdown string -- our Enterprise AI LP
-with open("Building_AI_Products.md", "r") as f:
-    markdown_string = f.read()
 
 # SCOPES specifies which Google APIs you want to authorize access to
 SCOPES = [
     "https://www.googleapis.com/auth/drive.file",
 ]
 # Our credentials; I got this from following this tutorial from LI: https://iwww.corp.linkedin.com/wiki/cf/pages/viewpage.action?spaceKey=CIT&title=Service+Accounts+for+Google+APIs
-SERVICE_ACCOUNT_FILE = ".service_credentials.json"
+dir_path = Path(__file__).parent
+SERVICE_ACCOUNT_FILE = dir_path / ".service_credentials.json"
 credentials = service_account.Credentials.from_service_account_file(
     SERVICE_ACCOUNT_FILE, scopes=SCOPES
 )
-
-# Create both Docs and Drive services; Docs to create the document, Drive to share it
+# Create the drive service with our credentials
 drive_service = build("drive", "v3", credentials=credentials)
 
 
@@ -28,10 +26,8 @@ def create_doc_from_markdown(
     """
     Converts the markdown string into html, then turns into in a bytes object, then uploads directly to Google Drive like it was a file upload.
     """
-    # Shrink the headers by one level
-    markdown_string = markdown_content.replace("# ", "## ")
     # Convert markdown to html
-    html = markdown(markdown_string)
+    html = markdown(markdown_content)
     # Create a new Google Doc
     file_metadata = {"name": title, "mimeType": "application/vnd.google-apps.document"}
     media = MediaIoBaseUpload(
@@ -58,6 +54,9 @@ def create_doc_from_markdown(
 
 
 def main():
+    # First, our markdown string -- our Enterprise AI LP
+    with open("Building_AI_Products.md", "r") as f:
+        markdown_string = f.read()
     title = "Building AI Products, v2"
     url = create_doc_from_markdown(title, markdown_string)
     print(f"Created and shared document with title: {title}")
