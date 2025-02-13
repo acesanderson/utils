@@ -25,6 +25,11 @@ def get_certs_df() -> pd.DataFrame:
     columns, values = values[2], values[3:]
     df = pd.DataFrame(values, columns=columns)
     df["Title"] = df["Title"].apply(lambda x: x.strip())
+    # Remove the row with this Title: "Career Essentials in System Administration by Microsoft and LinkedIn"
+    df = df[
+        df.Title
+        != "Career Essentials in System Administration by Microsoft and LinkedIn"
+    ]
     return df
 
 
