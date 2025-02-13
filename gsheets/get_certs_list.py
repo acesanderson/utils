@@ -1,6 +1,5 @@
 from googleapiclient.discovery import build
 from google.oauth2 import service_account
-import io
 from pathlib import Path
 import pandas as pd
 
@@ -18,60 +17,25 @@ credentials = service_account.Credentials.from_service_account_file(
 # Create the drive service with our credentials
 sheets_service = build("sheets", "v4", credentials=credentials)
 
-sheet = sheets_service.spreadsheets()
-result = sheet.values().get(spreadsheetId=tracker, range="All Pro Certs").execute()
-values = result.get("values", [])
-columns, values = values[2], values[3:]
-df = pd.DataFrame(values, columns=columns)
-df["Title"] = df["Title"].apply(lambda x: x.strip())
-print(f"{len(df)} certs found")
-# # Ramped certs
-ramped = df[df.Status == "Ramped"].Title.tolist()
-for r in ramped:
-    print(r)
 
-# def create_doc_from_markdown(
-#     title, markdown_content, users=["bianderson@linkedin.com"]
-# ):
-#     """
-#     Converts the markdown string into html, then turns into in a bytes object, then uploads directly to Google Drive like it was a file upload.
-#     """
-#     # Convert markdown to html
-#     html = markdown(markdown_content)
-#     # Create a new Google Doc
-#     file_metadata = {"name": title, "mimeType": "application/vnd.google-apps.document"}
-#     media = MediaIoBaseUpload(
-#         io.BytesIO(html.encode("utf-8")), mimetype="text/html", resumable=True
-#     )
-#     # Upload the document to Google Drive
-#     file = (
-#         drive_service.files()
-#         .create(body=file_metadata, media_body=media, fields="id")
-#         .execute()
-#     )
-#     doc_id = file.get("id")
-#     doc_url = f"https://docs.google.com/document/d/{doc_id}"
-#     # Share with user(s)
-#     for user in users:
-#         permission = {"type": "user", "role": "writer", "emailAddress": user}
-#         drive_service.permissions().create(
-#             fileId=doc_id,
-#             body=permission,
-#             fields="id",
-#             sendNotificationEmail=False,
-#         ).execute()
-#     return doc_url
-#
-#
-# def main():
-#     # First, our markdown string -- our Enterprise AI LP
-#     with open("Building_AI_Products.md", "r") as f:
-#         markdown_string = f.read()
-#     title = "Building AI Products, v2"
-#     url = create_doc_from_markdown(title, markdown_string)
-#     print(f"Created and shared document with title: {title}")
-#     print(url)
-#
-#
-# if __name__ == "__main__":
-#     main()
+def get_certs_df() -> pd.DataFrame:
+    sheet = sheets_service.spreadsheets()
+    result = sheet.values().get(spreadsheetId=tracker, range="All Pro Certs").execute()
+    values = result.get("values", [])
+    columns, values = values[2], values[3:]
+    df = pd.DataFrame(values, columns=columns)
+    df["Title"] = df["Title"].apply(lambda x: x.strip())
+    return df
+
+
+def main():
+    df = get_certs_df()
+    print(f"{len(df)} certs found")
+    # # Ramped certs
+    ramped = df[df.Status == "Ramped"].Title.tolist()
+    for r in ramped:
+        print(r)
+
+
+if __name__ == "__main__":
+    main()
