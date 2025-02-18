@@ -4,6 +4,7 @@ from .gsheets.markdown_to_google_doc import create_doc_from_markdown
 from .gsheets.get_certs_list import get_certs_df
 from .gsheets.save_gsheet import save_dataframe_to_new_sheet
 from .rot13 import rot13
+from .cosine import cosine
 
 __all__ = [
     "print_markdown",
@@ -12,4 +13,5 @@ __all__ = [
     "rot13",
     "get_certs_df",
     "save_dataframe_to_new_sheet",
+    "cosine",
 ]
