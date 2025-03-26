@@ -21,8 +21,9 @@ sheets_service = build("sheets", "v4", credentials=credentials)
 def get_certs_df() -> pd.DataFrame:
     sheet = sheets_service.spreadsheets()
     result = sheet.values().get(spreadsheetId=tracker, range="All Pro Certs").execute()
-    values = result.get("values", [])
-    columns, values = values[2], values[3:]
+    values = result["values"]
+    # This can break if people mess with the spreadsheet!
+    columns, values = values[3], values[4:]
     df = pd.DataFrame(values, columns=columns)
     df["Title"] = df["Title"].apply(lambda x: x.strip())
     # Remove the row with this Title: "Career Essentials in System Administration by Microsoft and LinkedIn"
@@ -30,6 +31,10 @@ def get_certs_df() -> pd.DataFrame:
         df.Title
         != "Career Essentials in System Administration by Microsoft and LinkedIn"
     ]
+    # Change the title that contains "CIPD" so that it removes "Professional Certificate " from it
+    df["Title"] = df["Title"].apply(
+        lambda x: x.replace("Professional Certificate ", "") if "CIPD" in x else x
+    )
     return df
 
 

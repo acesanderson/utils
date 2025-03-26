@@ -21,7 +21,9 @@ drive_service = build("drive", "v3", credentials=credentials)
 
 
 def create_doc_from_markdown(
-    title, markdown_content, users=["bianderson@linkedin.com"]
+    title,
+    markdown_content,
+    users=["bianderson@linkedin.com", "ewolman@linkedin.com", "manigupta@linkedin.com"],
 ):
     """
     Converts the markdown string into html, then turns into in a bytes object, then uploads directly to Google Drive like it was a file upload.
