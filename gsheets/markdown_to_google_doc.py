@@ -18,10 +18,15 @@ credentials = service_account.Credentials.from_service_account_file(
 )
 # Create the drive service with our credentials
 drive_service = build("drive", "v3", credentials=credentials)
+folder_id = (
+    "1Hx6KgyV_lXFLkiSrSyWBcIeArjhTfKh1"  # This is the Prof Cert Curations folder
+)
 
 
 def create_doc_from_markdown(
-    title, markdown_content, users=["bianderson@linkedin.com"]
+    title,
+    markdown_content,
+    users=["bianderson@linkedin.com"],
 ):
     """
     Converts the markdown string into html, then turns into in a bytes object, then uploads directly to Google Drive like it was a file upload.
@@ -29,7 +34,13 @@ def create_doc_from_markdown(
     # Convert markdown to html
     html = markdown(markdown_content)
     # Create a new Google Doc
-    file_metadata = {"name": title, "mimeType": "application/vnd.google-apps.document"}
+    # file_metadata = {"name": title, "mimeType": "application/vnd.google-apps.document"}
+    # Specify the target folder ID using the 'parents' key
+    file_metadata = {
+        "name": title,
+        "mimeType": "application/vnd.google-apps.document",
+        "parents": [folder_id],  # Add this line
+    }
     media = MediaIoBaseUpload(
         io.BytesIO(html.encode("utf-8")), mimetype="text/html", resumable=True
     )
