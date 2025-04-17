@@ -5,8 +5,6 @@ setup(
     version="0.1",
     packages=find_packages(),
     entry_points={
-        "console_scripts": [
-            "json_schema=json_schema:main",
-        ],
+        "console_scripts": ["json_schema=json_schema:main", "trends=trends:main"],
     },
 )

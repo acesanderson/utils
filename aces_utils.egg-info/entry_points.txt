@@ -1,2 +1,3 @@
 [console_scripts]
 json_schema = json_schema:main
+trends = trends:main
