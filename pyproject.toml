@@ -1,0 +1,17 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "utils"
+version = "3.0.0"
+description = "Random jumble of scripts."
+requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+addopts = "-v -s --tb=short --no-header --showlocals --pdb -x"
+log_cli = true
+log_cli_level = "INFO"
+
+[tool.hatch.build.targets.wheel]
+packages = ["."]
