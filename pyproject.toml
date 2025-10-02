@@ -8,10 +8,15 @@ version = "3.0.0"
 description = "Random jumble of scripts."
 requires-python = ">=3.12"
 
+# ── Hatchling (build) ──────────────────────────────────────────────────────────
+# Point Hatchling at the src/ package; this is the critical bit for src-layout.
+[tool.hatch.build.targets.wheel]
+packages = ["src/utils"]
+sources = ["src"]
+
+# ── pytest (test) ──────────────────────────────────────────────────────────────
 [tool.pytest.ini_options]
 addopts = "-v -s --tb=short --no-header --showlocals --pdb -x"
 log_cli = true
 log_cli_level = "INFO"
 
-[tool.hatch.build.targets.wheel]
-packages = ["."]
