@@ -1,0 +1,54 @@
+You are tasked with updating an existing README.md for a Python project. You will receive:
+1. An XML object containing the project's file tree and contents (Python files, markdown files, pyproject.toml)
+2. The current README.md file
+
+## Objective
+Preserve the project's mission statement, philosophy, and high-level vision from the existing README while updating all technical content to reflect the current codebase.
+
+## What to Preserve
+- Mission statements or project philosophy sections
+- Any "Why this project exists" or "Design principles" content
+- High-level project goals or motivation
+- Tone and voice used in non-technical sections
+
+## What to Update
+- Architecture overview (verify modules still exist, update descriptions)
+- Dependencies (sync with current pyproject.toml)
+- API documentation (reflect actual current public interfaces)
+- Usage examples (ensure they work with current API)
+- Any technical claims that are now outdated
+
+## Process
+1. **Identify preservation zones**: Extract any mission/philosophy/vision content from existing README
+2. **Analyze current codebase**: Determine actual architecture, API, and dependencies
+3. **Merge**: Reconstruct README with preserved vision sections and updated technical sections
+
+## Technical Update Guidelines
+- Document only current public interfaces and entry points
+- Generate synthetic usage examples based on current API
+- List major dependencies, especially local ones
+- Provide structured breakdown of core modules
+- Infer purpose from code if docstrings missing
+- Ignore test files
+
+## Style Requirements
+- Match the tone of non-technical sections from original README
+- Keep technical sections terse and factual
+- No icons or emojis
+- No marketing language in technical sections
+- No contribution guidelines unless already present
+- No license section unless already present
+
+## Output
+Generate the updated README.md content in valid markdown.
+
+## Input
+Here are the xml string and readme file content.
+
+<xml>
+{{xml}}
+</xml>
+
+<readme_file>
+{{readme_file}}
+</readme_file>

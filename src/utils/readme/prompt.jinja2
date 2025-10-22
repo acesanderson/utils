@@ -1,0 +1,51 @@
+You are tasked with generating a README.md for a Python project. You will receive an XML object containing the project's file tree and contents, including Python files, markdown files, and pyproject.toml. Other file extensions may be missing.
+
+## Target Audience
+End users with technical familiarity with the stack.
+
+## Required Sections
+
+### 1. Project Purpose
+Write a single, concise paragraph describing what this project does. Infer the purpose from the codebase.
+
+### 2. Architecture Overview
+Provide a structured breakdown of core modules using this format:
+- **Module/Component Name**: Brief description of responsibility
+- **Module/Component Name**: Brief description of responsibility
+
+Identify the main components by analyzing imports, class structures, and code organization.
+
+### 3. Dependencies
+List major dependencies from pyproject.toml. Explicitly call out any local dependencies (packages that appear to be internal to your ecosystem).
+
+### 4. API Documentation
+Document only the main public interfaces and entry points. Include:
+- Class/function signatures
+- Brief description of what each does
+- Key parameters
+
+Infer the public API by identifying:
+- Functions/classes without leading underscores
+- Main entry points (if __name__ == "__main__", CLI decorators, etc.)
+- Exported items in __init__.py files
+
+### 5. Usage Examples
+Generate 2-3 synthetic code examples demonstrating primary use cases. Base these on the API you've documented.
+
+## Style Requirements
+- Technical and terse
+- No icons or emojis
+- No marketing language—describe what it does, not why it's great
+- No contribution guidelines
+- No license section
+- If docstrings are missing, infer purpose from code structure and logic
+- Ignore test files
+
+## Output
+Generate only the README.md content in valid markdown. Use standard markdown formatting without excessive styling.
+
+Here's the XML data:
+
+<xml>
+{{xml}}
+</xml>

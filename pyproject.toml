@@ -7,6 +7,9 @@ name = "utils"
 version = "3.0.0"
 description = "Random jumble of scripts."
 requires-python = ">=3.12"
+dependencies = [
+    "siphon"
+]
 
 # ── Hatchling (build) ──────────────────────────────────────────────────────────
 # Point Hatchling at the src/ package; this is the critical bit for src-layout.
@@ -20,3 +23,12 @@ addopts = "-v -s --tb=short --no-header --showlocals --pdb -x"
 log_cli = true
 log_cli_level = "INFO"
 
+
+# ── uv sources (local/editable deps) ───────────────────────────────────────────
+[tool.uv.sources]
+siphon = { path = "../siphon-project", editable = true }
+conduit = { path = "../conduit-project", editable = true }
+
+# ── Scripts (CLI entry points) ─────────────────────────────────────────────────
+[project.scripts]
+readme = "utils.readme.readme:main"
