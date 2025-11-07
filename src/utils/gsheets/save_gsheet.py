@@ -2,6 +2,7 @@ from googleapiclient.discovery import build
 from google.oauth2 import service_account
 from pathlib import Path
 import pandas as pd
+import json
 
 
 # SCOPES specifies which Google APIs you want to authorize access to
@@ -12,6 +13,9 @@ SCOPES = [
 # Our credentials; I got this from following this tutorial from LI: https://iwww.corp.linkedin.com/wiki/cf/pages/viewpage.action?spaceKey=CIT&title=Service+Accounts+for+Google+APIs
 dir_path = Path(__file__).parent
 SERVICE_ACCOUNT_FILE = dir_path / ".service_credentials.json"
+json_dict = json.loads(SERVICE_ACCOUNT_FILE.read_text())
+breakpoint()
+
 credentials = service_account.Credentials.from_service_account_file(
     SERVICE_ACCOUNT_FILE, scopes=SCOPES
 )
@@ -74,11 +78,11 @@ def save_dataframe_to_new_sheet(df, title, user_email="bianderson@linkedin.com")
         return None
 
 
-def main():
-    example_df = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
-    sheet_title = "Malarkey"
-    save_dataframe_to_new_sheet(example_df, sheet_title)
-
-
-if __name__ == "__main__":
-    main()
+# def main():
+#     example_df = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
+#     sheet_title = "Malarkey"
+#     save_dataframe_to_new_sheet(example_df, sheet_title)
+#
+#
+# if __name__ == "__main__":
+#     main()

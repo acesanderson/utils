@@ -3,6 +3,7 @@ from googleapiclient.http import MediaIoBaseUpload
 from google.oauth2 import service_account
 from markdown2 import markdown
 import io
+import os
 from pathlib import Path
 
 
@@ -65,10 +66,12 @@ def create_doc_from_markdown(
 
 
 def main():
-    # First, our markdown string -- our Enterprise AI LP
-    with open("Building_AI_Products.md", "r") as f:
+    OBSIDIAN_PATH = Path(os.getenv("OBSIDIAN_PATH"))
+    PODCAST_FILE_PATH = OBSIDIAN_PATH / "Podcasts.md"
+    assert PODCAST_FILE_PATH.exists(), f"File not found: {PODCAST_FILE_PATH}"
+    with open(PODCAST_FILE_PATH, "r") as f:
         markdown_string = f.read()
-    title = "Building AI Products, v2"
+    title = "Podcasts Collection"
     url = create_doc_from_markdown(title, markdown_string)
     print(f"Created and shared document with title: {title}")
     print(url)
