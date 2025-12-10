@@ -14,7 +14,6 @@ SCOPES = [
 dir_path = Path(__file__).parent
 SERVICE_ACCOUNT_FILE = dir_path / ".service_credentials.json"
 json_dict = json.loads(SERVICE_ACCOUNT_FILE.read_text())
-breakpoint()
 
 credentials = service_account.Credentials.from_service_account_file(
     SERVICE_ACCOUNT_FILE, scopes=SCOPES
