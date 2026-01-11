@@ -33,3 +33,5 @@ conduit = { path = "../conduit-project", editable = true }
 # ── Scripts (CLI entry points) ─────────────────────────────────────────────────
 [project.scripts]
 readme = "utils.readme.readme:main"
+usernames = "utils.diceware.dice:main"
+passwords = "utils.passwords.password:main"
