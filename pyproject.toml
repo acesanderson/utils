@@ -35,3 +35,4 @@ conduit = { path = "../conduit-project", editable = true }
 readme = "utils.readme.readme:main"
 usernames = "utils.diceware.dice:main"
 passwords = "utils.passwords.password:main"
+names = "utils.diceware.names:main"
